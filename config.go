@@ -4,7 +4,7 @@ import (
 	"regexp"
 	"time"
 
-	"github.com/Shopify/sarama"
+	"github.com/IBM/sarama"
 )
 
 var minVersion = sarama.V0_9_0_0
@@ -90,7 +90,7 @@ func NewConfig() *Config {
 	}
 	c.Group.PartitionStrategy = StrategyRange
 	c.Group.Offsets.Retry.Max = 3
-	c.Group.Offsets.Synchronization.DwellTime = c.Consumer.MaxProcessingTime
+	// c.Group.Offsets.Synchronization.DwellTime = c.Consumer.MaxProcessingTime
 	c.Group.Session.Timeout = 30 * time.Second
 	c.Group.Heartbeat.Interval = 3 * time.Second
 	c.Config.Version = minVersion
@@ -135,7 +135,7 @@ func (c *Config) Validate() error {
 		return sarama.ConfigurationError("Metadata.Full must be enabled when Group.Topics.Blacklist is used")
 	}
 
-	// ensure offset is correct
+	//ensure offset is correct
 	switch c.Consumer.Offsets.Initial {
 	case sarama.OffsetOldest, sarama.OffsetNewest:
 	default:

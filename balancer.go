@@ -4,7 +4,7 @@ import (
 	"math"
 	"sort"
 
-	"github.com/Shopify/sarama"
+	"github.com/IBM/sarama"
 )
 
 // NotificationType defines the type of notification
@@ -154,8 +154,8 @@ func newBalancerFromMeta(client sarama.Client, strategy Strategy, members map[st
 
 func newBalancer(client sarama.Client, strategy Strategy) *balancer {
 	return &balancer{
-		client: client,
-		topics: make(map[string]topicInfo),
+		client:   client,
+		topics:   make(map[string]topicInfo),
 		strategy: strategy,
 	}
 }

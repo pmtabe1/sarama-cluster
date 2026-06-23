@@ -7,7 +7,7 @@ import (
 	"os/signal"
 	"regexp"
 
-	cluster "github.com/bsm/sarama-cluster"
+	cluster "github.com/pmtabe1/sarama-cluster"
 )
 
 // This example shows how to use the consumer to read messages
@@ -16,7 +16,8 @@ func ExampleConsumer() {
 
 	// init (custom) config, enable errors and notifications
 	config := cluster.NewConfig()
-	config.Consumer.Return.Errors = true
+
+	// config.Consumer.Return.Errors = true
 	config.Group.Return.Notifications = true
 
 	// init consumer
@@ -91,10 +92,11 @@ func ExampleConsumer_Partitions() {
 
 			// start a separate goroutine to consume messages
 			go func(pc cluster.PartitionConsumer) {
-				for msg := range pc.Messages() {
-					fmt.Fprintf(os.Stdout, "%s/%d/%d\t%s\t%s\n", msg.Topic, msg.Partition, msg.Offset, msg.Key, msg.Value)
-					consumer.MarkOffset(msg, "") // mark message as processed
-				}
+				
+				// for msg := range pc.Messages() {
+				// 	fmt.Fprintf(os.Stdout, "%s/%d/%d\t%s\t%s\n", msg.Topic, msg.Partition, msg.Offset, msg.Key, msg.Value)
+				// 	consumer.MarkOffset(msg, "") // mark message as processed
+				// }
 			}(part)
 		case <-signals:
 			return

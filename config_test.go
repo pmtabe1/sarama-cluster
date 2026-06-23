@@ -3,6 +3,7 @@ package cluster
 import (
 	"time"
 
+	"github.com/IBM/sarama"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
@@ -20,7 +21,7 @@ var _ = Describe("Config", func() {
 		Expect(subject.Group.Return.Notifications).To(BeFalse())
 		Expect(subject.Metadata.Retry.Max).To(Equal(3))
 		Expect(subject.Group.Offsets.Synchronization.DwellTime).NotTo(BeZero())
-		// Expect(subject.Config.Version).To(Equal(sarama.V0_9_0_0))
+		Expect(subject.Config.Version).To(Equal(sarama.V0_9_0_0))
 	})
 
 })

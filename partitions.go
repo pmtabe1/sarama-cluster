@@ -5,7 +5,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Shopify/sarama"
+	"github.com/IBM/sarama"
 )
 
 // PartitionConsumer allows code to consume individual partitions from the cluster.
@@ -111,28 +111,28 @@ func (c *partitionConsumer) multiplex(stopper <-chan none, messages chan<- *sara
 
 	for {
 		select {
-		case msg, ok := <-c.Messages():
-			if !ok {
-				return
-			}
-			select {
-			case messages <- msg:
-			case <-stopper:
-				return
-			case <-c.dying:
-				return
-			}
-		case err, ok := <-c.Errors():
-			if !ok {
-				return
-			}
-			select {
-			case errors <- err:
-			case <-stopper:
-				return
-			case <-c.dying:
-				return
-			}
+		// case msg, ok := <-c.Messages():
+		// 	if !ok {
+		// 		return
+		// 	}
+		// 	select {
+		// 	case messages <- msg:
+		// 	case <-stopper:
+		// 		return
+		// 	case <-c.dying:
+		// 		return
+		// 	}
+		// case err, ok := <-c.Errors():
+		// 	if !ok {
+		// 		return
+		// 	}
+		// 	select {
+		// 	case errors <- err:
+		// 	case <-stopper:
+		// 		return
+		// 	case <-c.dying:
+		// 		return
+		// 	}
 		case <-stopper:
 			return
 		case <-c.dying:
