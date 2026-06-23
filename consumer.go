@@ -236,6 +236,7 @@ func (c *Consumer) CommitOffsets() error {
 		if state.Dirty {
 			dirty = true
 			req.AddBlock(tp.Topic, tp.Partition, state.Info.Offset, 0, state.Info.Metadata)
+
 		}
 	}
 	if !dirty {
